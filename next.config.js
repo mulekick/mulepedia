@@ -11,10 +11,12 @@ const
         reactStrictMode: true,
 
         // custom build directory ...
-        distDir: `build`,
+        // (disabled for vercel deployment)
+        // distDir: `build`,
 
         // export the app as a static HTML website
-        output: `export`,
+        // (disabled for vercel deployment)
+        // output: `export`,
 
         // required for static exports since the <Image> component optimizes
         // image loading on demand and thus requires a server ...

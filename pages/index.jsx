@@ -68,7 +68,7 @@ const
         // return <Layout outletComponent={ <List data={ data }/> }/>;
 
         // return component
-        return <Layout page={ `index` } outletComponent={ <Article data={ {htmlContents} }/> }/>;
+        return <Layout page={ `documentation index` } outletComponent={ <Article data={ {htmlContents} }/> }/>;
     };
 
 // export page as default

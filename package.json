@@ -9,29 +9,29 @@
         "lint": "next lint",
         "build": "next build .",
         "prod": "next start . -p 8080",
-        "reset": "rm -rf .next build out standalone",
-        "predeploy": "npm run build",
-        "deploy": "gh-pages --dist build --branch static --message \"rebuild\"",
-        "live": "docker container run --rm -d --mount type=bind,source=$(realpath build),target=/data/static,ro=true -p 8080:80 mulekick/serve-static:latest > /tmp/static-container-id",
+        "predeploy": "npx vercel build --token $(cat vercel.token) --cwd . --local-config=vercel.json --prod",
+        "deploy": "npx vercel deploy --token $(cat vercel.token) --cwd . --prebuilt --local-config=vercel.json --prod",
+        "reset": "rm -rf .next .vercel",
+        "live": "docker container run --rm -d --mount type=bind,source=$(realpath .vercel/output/static),target=/data/static,ro=true -p 8080:80 mulekick/serve-static:latest > /tmp/static-container-id",
         "die": "docker container stop $(cat /tmp/static-container-id) && rm /tmp/static-container-id"
     },
     "dependencies": {
         "@octokit/core": "^4.2.1",
         "github-markdown-css": "^5.2.0",
         "gray-matter": "^4.0.3",
-        "readdirp": "^3.6.0",
         "next": "^13.4.3",
         "react": "^18.2.0",
-        "react-dom": "^18.2.0"
+        "react-dom": "^18.2.0",
+        "readdirp": "^3.6.0"
     },
     "devDependencies": {
         "@mulekick/eslint-config-muleslint": "^1.0.2",
         "@next/eslint-plugin-next": "^13.4.3",
         "eslint-plugin-react": "^7.32.2",
         "eslint-plugin-react-hooks": "^4.6.0",
-        "gh-pages": "^5.0.0",
+        "sass": "^1.62.1",
         "sharp": "^0.32.1",
-        "sass": "^1.62.1"
+        "vercel": "^29.3.6"
     },
     "engines": {
         "node": ">=16.16.0",
