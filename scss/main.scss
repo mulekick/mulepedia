@@ -1,0 +1,71 @@
+@charset "utf-8";
+@import "mixins";
+
+body {
+    width: 100%;
+    // remove default margin
+    margin: 0px;
+
+    // styles overrides
+    background: url("/gh-bg.webp") center top no-repeat fixed;
+    background-size: auto 100%;
+}
+
+header {
+    // content layout management
+    @include flex($direction: row, $align: center, $justify: space-evenly);
+
+    // styles overrides (not using the box mixin there to align with the github styles)
+    box-sizing: border-box;
+    min-width: 200px;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 15px;
+
+    a {
+        @include span;
+
+        // styles overrides 
+        text-decoration: none;
+        &:hover {
+            color: #57ab5a;
+        }
+    }
+
+    img {
+        // hackermans
+        border-radius: 50%;
+    }
+}
+
+.current-page {
+    // content layout management
+    @include flex($direction: row, $justify: flex-start);
+    @include span;
+
+    // styles overrides
+    box-sizing: border-box;
+    min-width: 200px;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 15px 0;
+    width: calc(100vw - 45px);
+}
+
+.markdown-body {
+    box-sizing: border-box;
+    min-width: 200px;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 45px;
+    border: 2.5px solid #57ab5a;
+
+    // styles overrides
+    width: calc(100vw - 45px);
+}
+
+@media (max-width: 767px) {
+    .markdown-body {
+        padding: 15px;
+    }
+}

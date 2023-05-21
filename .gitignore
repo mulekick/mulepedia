@@ -1,0 +1,12 @@
+# exclude node modules
+node_modules
+
+# exclude build folders
+.next
+build
+out
+standalone
+
+# projects specifics
+docs
+external.test.*
