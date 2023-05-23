@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types, react/react-in-jsx-scope */
 
 // import modules
-import {useRouter} from "next/router.js";
 import Layout from "../components/layout.jsx";
 import Article from "../components/article.jsx";
 import {readFilesPaths, readFileContents} from "../lib/helpers.js";
@@ -34,13 +33,11 @@ const
     // page component
     DocumentationPage = props => {
         const
-            // retrieve router
-            rooter = useRouter(),
             // extract props
             {data} = props;
 
         // return component
-        return <Layout page={rooter.query.file.join(`/`)} outletComponent={ <Article data={ data }/> }/>;
+        return <Layout page={ data.description } outletComponent={ <Article data={ data }/> }/>;
     };
 
 // export page as default
