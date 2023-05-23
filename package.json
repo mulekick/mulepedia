@@ -9,11 +9,11 @@
         "lint": "next lint",
         "build": "next build .",
         "prod": "next start . -p 8080",
-        "predeploy": "npx vercel build --token $(cat vercel.token) --cwd . --local-config=vercel.json --prod",
-        "deploy": "npm run predeploy && npx vercel deploy --token $(cat vercel.token) --cwd . --prebuilt --local-config=vercel.json --prod",
-        "reset": "rm -rf .next .vercel",
         "live": "docker container run --rm -d --mount type=bind,source=$(realpath .vercel/output/static),target=/data/static,ro=true -p 8080:80 mulekick/serve-static:latest > /tmp/static-container-id",
-        "die": "docker container stop $(cat /tmp/static-container-id) && rm /tmp/static-container-id"
+        "die": "docker container stop $(cat /tmp/static-container-id) && rm /tmp/static-container-id",
+        "predeploy": "npx vercel build --prod --cwd . --local-config=vercel.json --token $(cat vercel.token)",
+        "deploy": "npm run predeploy && npx vercel deploy --prod --prebuilt --token $(cat vercel.token)",
+        "reset": "rm -rf .next .vercel"
     },
     "dependencies": {
         "@octokit/core": "^4.2.1",
