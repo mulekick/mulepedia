@@ -1,5 +1,5 @@
 {
-    "name": "example-nextjs-markdown",
+    "name": "mulepedia",
     "version": "0.1.0",
     "private": true,
     "description": "Personal documentation website built using next.js static site generation features",
@@ -44,5 +44,5 @@
     "license": "MIT",
     "repository": {},
     "bugs": {},
-    "homepage": "https://github.com/mulekick/docs"
+    "homepage": "https://github.com/mulekick/mulepedia"
 }

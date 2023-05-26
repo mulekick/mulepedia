@@ -22,9 +22,11 @@ header {
     margin: 0 auto;
     padding: 15px;
 
-    a {
+    .page-title {
         @include span;
+    }
 
+    a {
         // styles overrides 
         text-decoration: none;
         &:hover {
@@ -40,7 +42,7 @@ header {
 
 .current-page {
     // content layout management
-    @include flex($direction: row, $justify: flex-start);
+    @include flex($direction: row, $justify: space-between);
     @include span;
 
     // styles overrides
@@ -50,6 +52,11 @@ header {
     margin: 0 auto;
     padding: 15px 0;
     width: calc(100vw - 45px);
+
+    img {
+        // octocat
+        border-radius: 50%;
+    }
 }
 
 .markdown-body {

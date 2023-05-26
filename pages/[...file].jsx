@@ -37,7 +37,7 @@ const
             {data} = props;
 
         // return component
-        return <Layout page={ data.description } outletComponent={ <Article data={ data }/> }/>;
+        return <Layout index={false} page={ data.description } outletComponent={ <Article data={ data }/> }/>;
     };
 
 // export page as default

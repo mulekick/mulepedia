@@ -10,12 +10,12 @@ const
     Layout = props => {
         const
             // extract props
-            {page, outletComponent} = props;
+            {index, page, outletComponent} = props;
 
         // return component
         return <>
             <Head>
-                <title>Next.js documentation website</title>
+                <title>Mulepedia</title>
                 <meta charSet="utf-8" />
                 <link rel="icon" href="/favicon.ico" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,12 +23,17 @@ const
             </Head>
             <header>
                 <Image src="/hackermans.png" height={ 75 } width={ 75 } alt="Everyday" />
-                <Link href={ `/` }>Back to home page</Link>
+                { index ? <span className="page-title">This is the home page</span> : <Link className="page-title" href={ `/` }>Back to the home page</Link> }
                 <Image src="/hackermans.png" height={ 75 } width={ 75 } alt="Everyday" />
             </header>
             {/* the nav + container pattern has to be implemented here */}
             <main>
-                <p className="current-page">{ page }</p>
+                <div className="current-page">
+                    <span>{ page }</span>
+                    <Link href={ `https://github.com/mulekick/mulepedia` }>
+                        <Image src="/gh-logo.png" height={ 25 } width={ 25 } alt="view on github" />
+                    </Link>
+                </div>
                 {
                     // display the component for the current route ...
                     outletComponent
