@@ -19,19 +19,19 @@
         "@octokit/core": "^5.0.0",
         "github-markdown-css": "^5.2.0",
         "gray-matter": "^4.0.3",
-        "next": "^13.4.9",
+        "next": "^13.4.19",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "readdirp": "^3.6.0"
     },
     "devDependencies": {
         "@mulekick/eslint-config-muleslint": "^1.0.2",
-        "@next/eslint-plugin-next": "^13.4.9",
-        "eslint-plugin-react": "^7.32.2",
+        "@next/eslint-plugin-next": "^13.4.19",
+        "eslint-plugin-react": "^7.33.2",
         "eslint-plugin-react-hooks": "^4.6.0",
-        "sass": "^1.63.6",
-        "sharp": "^0.32.1",
-        "vercel": "^31.0.2"
+        "sass": "^1.67.0",
+        "sharp": "^0.32.5",
+        "vercel": "^32.2.4"
     },
     "engines": {
         "node": ">=16.16.0",
