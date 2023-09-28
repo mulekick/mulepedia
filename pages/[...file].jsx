@@ -37,7 +37,7 @@ const
             {data} = props;
 
         // return component
-        return <Layout index={false} page={ data.description } outletComponent={ <Article data={ data }/> }/>;
+        return <Layout index={false} title={ `${ data.title } - Mulepedia` } description={ data.description } outletComponent={ <Article data={ data }/> }/>;
     };
 
 // export page as default

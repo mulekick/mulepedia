@@ -65,7 +65,7 @@ const
             {htmlContents} = props;
 
         // return component
-        return <Layout index={true} page={ `documentation index` } outletComponent={ <Article data={ {htmlContents} }/> }/>;
+        return <Layout index={true} title={ `Mulepedia` } description={ `documentation index` } outletComponent={ <Article data={ {htmlContents} }/> }/>;
     };
 
 // export page as default

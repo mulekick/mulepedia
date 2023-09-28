@@ -10,12 +10,12 @@ const
     Layout = props => {
         const
             // extract props
-            {index, page, outletComponent} = props;
+            {index, title, description, outletComponent} = props;
 
         // return component
         return <>
             <Head>
-                <title>Mulepedia</title>
+                <title>{ title }</title>
                 <meta charSet="utf-8" />
                 <link rel="icon" href="/favicon.ico" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -29,7 +29,7 @@ const
             {/* the nav + container pattern has to be implemented here */}
             <main>
                 <div className="current-page">
-                    <span>{ page }</span>
+                    <span>{ description }</span>
                     <Link href={ `https://github.com/mulekick/mulepedia` }>
                         <Image src="/gh-logo.png" height={ 25 } width={ 25 } alt="view on github" />
                     </Link>
