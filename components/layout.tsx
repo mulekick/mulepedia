@@ -5,9 +5,20 @@ import Head from "next/head.js";
 import Link from "next/link.js";
 import Image from "next/image.js";
 
+// import modules
+import React from "react";
+
+// declare interfaces
+interface PropsSignature {
+    index:boolean,
+    title:string,
+    description:string,
+    outletComponent:React.JSX.Element
+}
+
 const
     // app layout component
-    Layout = props => {
+    Layout = (props:PropsSignature):React.JSX.Element => {
         const
             // extract props
             {index, title, description, outletComponent} = props;

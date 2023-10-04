@@ -10,12 +10,29 @@ import readdirp from "readdirp";
 import matter from "gray-matter";
 import {Octokit} from "@octokit/core";
 
+// declare interfaces
+export interface FileRelativePath {
+    params:{file:Array<string>}
+}
+
+export interface FileMetadata {
+    relativePath:string;
+    title:string;
+    description:string;
+    index:number;
+    publish:boolean;
+}
+
+export interface FileContents extends FileMetadata {
+    htmlContents:string;
+}
+
 const
     // symlink to *.md files directory
     docsDirectory = `docs`,
     // -------------------------------------------------
     // recursively parse directories (returns a promise)
-    parseDirectory = dir => readdirp.promise(dir, {
+    parseDirectory = (dir:string):Promise<Array<readdirp.EntryInfo>> => readdirp.promise(dir, {
         // filter file extensions (hidden files not processed by default ...)
         fileFilter: [ `*.md`, `.*.md` ],
         // filter subdirectories
@@ -31,12 +48,12 @@ const
     }),
     // -------------------------------------------------
     // handle dynamic routing - read files list
-    readFiles = async() => {
+    readFiles = async():Promise<Array<FileMetadata>> => {
         const
             // get all files
-            files = await parseDirectory(docsDirectory),
+            files:Array<readdirp.EntryInfo> = await parseDirectory(docsDirectory),
             // retrieve files contents
-            filesContents = await Promise.all(files.map(x => {
+            filesContents:Array<matter.Input> = await Promise.all(files.map(x => {
                 const
                     // retrieve full path
                     {fullPath} = x;
@@ -45,41 +62,47 @@ const
             }));
 
         return files
-            .map((x, i) => ({
-                // uniquely identify each file by its relative path - remove extension
-                // use dot notation to avoid shadowing path primitive
-                relativePath: path.join(docsDirectory, x.path.replace(/\.md$/u, ``)),
-                // parse file metadata
-                ...matter(filesContents.at(i)).data
-            }))
+            .map((x:readdirp.EntryInfo, i:number):FileMetadata => {
+                const
+                    // parse the file metadata section
+                    {data: {title, description, index, publish}} = matter(filesContents.at(i) ?? ``);
+
+                return {
+                    // uniquely identify each file by its relative path - remove extension
+                    // use dot notation to avoid shadowing path primitive
+                    relativePath: path.join(docsDirectory, x.path.replace(/\.md$/u, ``)),
+                    // eslint-disable-next-line object-property-newline
+                    title, description, index, publish
+                };
+            })
             // filter by publishing status
-            .filter(x => x.publish === true)
+            .filter((x:FileMetadata):boolean => x.publish === true)
             // sort files by index
-            .sort((a, b) => (a.index > b.index ? 1 : -1));
+            .sort((a:FileMetadata, b:FileMetadata):number => (a.index && b.index ? a.index > b.index ? 1 : -1 : 0));
     },
     // -------------------------------------------------
     // handle dynamic routing - generate dynamic routes from files
-    readFilesPaths = async() => {
+    readFilesPaths = async():Promise<Array<FileRelativePath>> => {
         const
             // get all files
-            files = await parseDirectory(docsDirectory);
+            files:Array<readdirp.EntryInfo> = await parseDirectory(docsDirectory);
 
         // read files list, remove extensions and split the relative path of each file
         // the resulting array will be used to identify each file and create a route for it
         // generated routes will be handled by the catch-all segment pages/[...file].jsx
         // see https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes
-        return files.map(x => ({params: {file: [ docsDirectory, ...x.path.replace(/\.md$/u, ``).split(`/`) ]}}));
+        return files.map((x:readdirp.EntryInfo):FileRelativePath => ({params: {file: [ docsDirectory, ...x.path.replace(/\.md$/u, ``).split(`/`) ]}}));
     },
     // -------------------------------------------------
     // handle dynamic routing - retrieve and format file contents
-    readFileContents = async file => {
+    readFileContents = async(filePathSegments:Array<string>):Promise<FileContents> => {
         const
             // reconstruct relative path, append file extension
-            relativePath = `${ path.join(...file) }.md`,
+            relativePath = `${ path.join(...filePathSegments) }.md`,
             // retrieve file contents
             fileContents = await readFile(relativePath, `utf8`),
             // parse the file metadata and contents section
-            {data, content} = matter(fileContents),
+            {data: {title, description, index, publish}, content} = matter(fileContents),
             // no authentication required to access the github markdown api ...
             octokit = new Octokit(),
             // parse the file markdown content into html
@@ -98,8 +121,8 @@ const
             relativePath,
             // export html content
             htmlContents: formattedHtml.data,
-            // spread file metadata
-            ...data
+            // eslint-disable-next-line object-property-newline
+            title, description, index, publish
         };
     };
 

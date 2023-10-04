@@ -2,7 +2,10 @@
     "extends": [
         "plugin:react/recommended",
         "plugin:react-hooks/recommended",
+        "plugin:@typescript-eslint/recommended",
         "@mulekick/eslint-config-muleslint",
         "plugin:@next/next/recommended"
-    ]
+    ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": [ "@typescript-eslint" ]
 }

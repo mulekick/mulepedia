@@ -1,27 +1,34 @@
 /* eslint-disable react/prop-types, react/react-in-jsx-scope */
 
 // import modules
-import Layout from "../components/layout.jsx";
-import Article from "../components/article.jsx";
-import {readFilesPaths, readFileContents} from "../lib/helpers.js";
+import React from "react";
+import {GetStaticPaths, GetStaticProps, GetStaticPropsContext} from "next";
+import Layout from "../components/layout.tsx";
+import Article from "../components/article.tsx";
+import {FileRelativePath, FileContents, readFilesPaths, readFileContents} from "../lib/helpers.ts";
+
+// declare interfaces
+interface PropsSignature {
+    data:FileContents
+}
 
 const
     // async retrieval of ids to populate the
     // list of pages to statically generate
-    getStaticPaths = async() => {
+    getStaticPaths:GetStaticPaths = async() => {
         const
             // async retrieval
-            paths = await readFilesPaths();
+            paths:Array<FileRelativePath> = await readFilesPaths();
 
         return {paths, fallback: false};
     },
     // async retrieval of props for static site generation
-    getStaticProps = async context => {
+    getStaticProps:GetStaticProps = async(context:GetStaticPropsContext) => {
         const
             // read context
-            {params: {file}} = context,
-            // async retrieval
-            data = await readFileContents(file);
+            {params} = context,
+            // async retrieval (typescript situation again)
+            data = await readFileContents(params?.file ? [ ...params.file ] : [ `` ]);
         // pass object as props to the page
         return {props: {data}};
     };
@@ -31,7 +38,7 @@ export {getStaticProps, getStaticPaths};
 
 const
     // page component
-    DocumentationPage = props => {
+    DocumentationPage = (props:PropsSignature):React.JSX.Element => {
         const
             // extract props
             {data} = props;

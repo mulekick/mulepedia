@@ -12,19 +12,28 @@
 import process from "node:process";
 
 // import modules
-import Layout from "../components/layout.jsx";
-import Article from "../components/article.jsx";
+import React from "react";
+import {GetStaticProps, GetStaticPropsContext} from "next";
+import Layout from "../components/layout.tsx";
+import Article from "../components/article.tsx";
 import {Octokit} from "@octokit/core";
-import {readFiles} from "../lib/helpers.js";
+import {FileMetadata, readFiles} from "../lib/helpers.ts";
+
+// declare interfaces
+interface PropsSignature {
+    htmlContents:string
+}
 
 const
     // async retrieval of props for static site generation
     // will run once at build time and return props that can
     // be used for page generation
-    getStaticProps = async context => {
+
+    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+    getStaticProps:GetStaticProps = async(context:GetStaticPropsContext) => {
         const
             // retrieve list of files
-            data = await readFiles(),
+            data:Array<FileMetadata> = await readFiles(),
             // no authentication required to access the github markdown api ...
             octokit = new Octokit();
 
@@ -32,7 +41,7 @@ const
             // generate markdown on the fly
             content = `## Pages\n`;
 
-        data.forEach(x => {
+        data.forEach((x:FileMetadata):undefined => {
             const
                 // extract variables
                 {relativePath, title} = x;
@@ -59,7 +68,7 @@ export {getStaticProps};
 
 const
     // page component
-    HomePage = props => {
+    HomePage = (props:PropsSignature):React.JSX.Element => {
         const
             // extract props
             {htmlContents} = props;
