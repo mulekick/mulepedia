@@ -19,6 +19,7 @@ interface PropsSignature {
 }
 
 const
+
     // app layout component
     Layout = (props:PropsSignature):React.JSX.Element => {
         const
@@ -55,20 +56,19 @@ const
                             <meta property="og:image:type" content="image/png" />
                             <meta property="og:image:width" content="445" />
                             <meta property="og:image:height" content="445" />
+
                             {
                                 index ?
                                     // identify home page as a website
                                     <meta property="og:type" content="website" /> :
-                                    // else, identify as an article
-                                    <>
-                                        <meta property="og:type" content="article" />
-                                        <meta property="og:article:section" content="Tech digest" />
-                                        <meta property="og:article:author" content="https://github.com/mulekick" />
-                                        {
-                                            // add opengraph compliant tags for keywords
-                                            keywords.split(`,`).map((x:string, i:number):React.JSX.Element => <meta key={ i } property="og:article:tag" content={ x } />)
-                                        }
-                                    </>
+                                    // else, identify as an article (can't return a fragment here for some reason ...)
+                                    [
+                                        <meta key={ 0 } property="og:type" content="article" />,
+                                        <meta key={ 1 } property="og:article:section" content="Tech digest" />,
+                                        <meta key={ 2 } property="og:article:author" content="https://github.com/mulekick" />,
+                                        // add opengraph compliant tags for keywords
+                                        ...keywords.split(`,`).map((x:string, i:number):React.JSX.Element => <meta key={ i + 2 } property="og:article:tag" content={ x } />)
+                                    ]
                             }
 
                             {/* Twitter Meta Tags - rely on og fallbacks as much as possible ... */}
