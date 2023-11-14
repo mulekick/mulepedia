@@ -11,7 +11,15 @@ body {
     background-size: auto 100%;
 }
 
-header {
+.page-title {
+    @include span;
+}
+
+.page-desc {
+    @include span($size: $font_xsmall);
+}
+
+nav {
     // content layout management
     @include flex($direction: row, $align: center, $justify: space-evenly);
 
@@ -21,10 +29,6 @@ header {
     max-width: 980px;
     margin: 0 auto;
     padding: 15px;
-
-    .page-title {
-        @include span;
-    }
 
     a {
         // styles overrides 
@@ -40,7 +44,7 @@ header {
     }
 }
 
-.current-page {
+.article-header {
     // content layout management
     @include flex($direction: row, $justify: space-between);
     @include span;

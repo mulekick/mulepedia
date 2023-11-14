@@ -1,10 +1,8 @@
-/* eslint-disable react/prop-types, react/react-in-jsx-scope */
-
 // import modules
 import React from "react";
 import {GetStaticPaths, GetStaticProps, GetStaticPropsContext} from "next";
 import Layout from "../components/layout.tsx";
-import Article from "../components/article.tsx";
+import Content from "../components/content.tsx";
 import {FileRelativePath, FileContents, readFilesPaths, readFileContents} from "../lib/helpers.ts";
 
 // declare interfaces
@@ -44,7 +42,14 @@ const
             {data} = props;
 
         // return component
-        return <Layout index={false} title={ `${ data.title } - Mulepedia` } description={ data.description } outletComponent={ <Article data={ data }/> }/>;
+        return <Layout
+            index={false}
+            title={ data.title }
+            description={ data.description }
+            keywords={ data.keywords }
+            canonicalUrl={ data.canonicalUrl }
+            outletComponent={ <Content data={ data }/> }
+        />;
     };
 
 // export page as default

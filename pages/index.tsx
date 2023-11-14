@@ -1,4 +1,5 @@
-/* eslint-disable node/no-process-env, react/prop-types, react/react-in-jsx-scope */
+/* eslint-disable node/no-unpublished-import, node/no-unsupported-features/es-syntax */
+
 
 /**
  * Page rendered using static site generation :
@@ -8,20 +9,18 @@
  * - some JS code will run on the page still
  */
 
-// import primitives
-import process from "node:process";
-
 // import modules
 import React from "react";
 import {GetStaticProps, GetStaticPropsContext} from "next";
 import Layout from "../components/layout.tsx";
-import Article from "../components/article.tsx";
+import Content from "../components/content.tsx";
 import {Octokit} from "@octokit/core";
 import {FileMetadata, readFiles} from "../lib/helpers.ts";
 
 // declare interfaces
 interface PropsSignature {
-    htmlContents:string
+    htmlContents:string,
+    canonicalUrl:string
 }
 
 const
@@ -32,6 +31,9 @@ const
     // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
     getStaticProps:GetStaticProps = async(context:GetStaticPropsContext) => {
         const
+            // use dynamic imports in getStaticProps because static
+            // imports seem to be resolved only at build time ...
+            {DOMAIN} = await import(`../lib/helpers.ts`),
             // retrieve list of files
             data:Array<FileMetadata> = await readFiles(),
             // no authentication required to access the github markdown api ...
@@ -47,7 +49,7 @@ const
                 {relativePath, title} = x;
 
             // add list entry (append .html extension at build time so the routes still match ...)
-            content += `- [${ title }](${ relativePath }${ process.env.NODE_ENV === `production` ? `.html` : `` })\n`;
+            content += `- [${ title }](${ relativePath })\n`;
         });
 
         const
@@ -60,7 +62,12 @@ const
                 }
             });
         // pass object as props to the page
-        return {props: {htmlContents: formattedHtml.data}};
+        return {
+            props: {
+                htmlContents: formattedHtml.data,
+                canonicalUrl: DOMAIN
+            }
+        };
     };
 
 // export static site generation function in a namespace ...
@@ -71,10 +78,17 @@ const
     HomePage = (props:PropsSignature):React.JSX.Element => {
         const
             // extract props
-            {htmlContents} = props;
+            {htmlContents, canonicalUrl} = props;
 
         // return component
-        return <Layout index={true} title={ `Mulepedia` } description={ `documentation index` } outletComponent={ <Article data={ {htmlContents} }/> }/>;
+        return <Layout
+            index={true}
+            title={ `Documentation index` }
+            description={ `Tech related digests, cheatsheets and howtos ...` }
+            keywords={ `mulepedia,homepage,tech,digest,cheatsheet` }
+            canonicalUrl={ canonicalUrl }
+            outletComponent={ <Content data={ {htmlContents} }/> }
+        />;
     };
 
 // export page as default

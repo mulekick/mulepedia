@@ -1,4 +1,4 @@
-/* eslint-disable no-shadow, node/prefer-global/console, react/prop-types, react/react-in-jsx-scope */
+/* eslint-disable no-shadow */
 
 // import modules
 import Head from "next/head.js";
@@ -13,6 +13,8 @@ interface PropsSignature {
     index:boolean,
     title:string,
     description:string,
+    keywords:string;
+    canonicalUrl:string|null;
     outletComponent:React.JSX.Element
 }
 
@@ -21,34 +23,85 @@ const
     Layout = (props:PropsSignature):React.JSX.Element => {
         const
             // extract props
-            {index, title, description, outletComponent} = props;
+            {index, title, description, keywords, canonicalUrl, outletComponent} = props;
 
         // return component
         return <>
             <Head>
-                <title>{ title }</title>
+                { /* using the head tag layout from mdn as of now */}
                 <meta charSet="utf-8" />
-                <link rel="icon" href="/favicon.ico" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <meta name="description" content="Web site powered by next.js" />
+                <link rel="icon" href="/favicon.ico" />
+                <title>{ `${ title } - Mulepedia` }</title>
+                <meta name="description" content={ description } />
+                <meta name="author" content="mulekick (https://github.com/mulekick)" />
+                <meta name="generator" content="next.js (https://nextjs.org/)" />
+                <meta name="keywords" content={ keywords } />
+                <meta name="referrer" content="origin" />
+                {
+                    // domain, image and profile are required for opengraph, however
+                    // I'm not passing these as props to the component for now ...
+                    canonicalUrl ?
+                        <>
+                            { /* crawling and indexing tags */}
+                            <meta name="robots" content="index, follow" />
+                            <link rel="canonical" href={ canonicalUrl } />
+
+                            {/* Facebook Meta Tags */}
+                            <meta property="og:title" content={ `${ title } - Mulepedia` } />
+                            <meta property="og:description" content={ description } />
+                            <meta property="og:url" content={ canonicalUrl } />
+                            <meta property="og:image" content="https://mulepedia.vercel.app/og-image.png" />
+                            <meta property="og:image:type" content="image/png" />
+                            <meta property="og:image:width" content="445" />
+                            <meta property="og:image:height" content="445" />
+                            {
+                                index ?
+                                    // identify home page as a website
+                                    <meta property="og:type" content="website" /> :
+                                    // else, identify as an article
+                                    <>
+                                        <meta property="og:type" content="article" />
+                                        <meta property="og:article:section" content="Tech digest" />
+                                        <meta property="og:article:author" content="https://github.com/mulekick" />
+                                        {
+                                            // add opengraph compliant tags for keywords
+                                            keywords.split(`,`).map((x:string, i:number):React.JSX.Element => <meta key={ i } property="og:article:tag" content={ x } />)
+                                        }
+                                    </>
+                            }
+
+                            {/* Twitter Meta Tags - rely on og fallbacks as much as possible ... */}
+                            <meta name="twitter:card" content="summary_large_image" />
+                            <meta name="twitter:creator" content="@moolekick" />
+                            <meta name="twitter:creator" content="@moolekick" />
+                        </> :
+                        // block web crawling if canonical url is not set
+                        <meta name="robots" content="noindex, nofollow" />
+                }
             </Head>
-            <header>
+            <nav>
                 <Image src="/hackermans.png" height={ 75 } width={ 75 } alt="Everyday" />
                 { index ? <span className="page-title">This is the home page</span> : <Link className="page-title" href={ `/` }>Back to the home page</Link> }
                 <Image src="/hackermans.png" height={ 75 } width={ 75 } alt="Everyday" />
-            </header>
+            </nav>
             {/* the nav + container pattern has to be implemented here */}
             <main>
-                <div className="current-page">
-                    <span>{ description }</span>
-                    <Link href={ `https://github.com/mulekick/mulepedia` }>
-                        <Image src="/gh-logo.png" height={ 25 } width={ 25 } alt="view on github" />
-                    </Link>
-                </div>
-                {
-                    // display the component for the current route ...
-                    outletComponent
-                }
+                <article>
+                    <header className="article-header">
+                        <div>
+                            <h1 className="page-title">{ title }</h1>
+                            <p className="page-desc">{ description }</p>
+                        </div>
+                        <Link href={ `https://github.com/mulekick/mulepedia` }>
+                            <Image src="/gh-logo.png" height={ 25 } width={ 25 } alt="view on github" />
+                        </Link>
+                    </header>
+                    {
+                        // display the component for the current route ...
+                        outletComponent
+                    }
+                </article>
             </main>
         </>;
     };

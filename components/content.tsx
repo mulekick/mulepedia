@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types, react/react-in-jsx-scope */
-
 // import modules
 import React from "react";
 
@@ -10,7 +8,7 @@ interface PropsSignature {
 
 const
     // page component
-    Article = (props:PropsSignature):React.JSX.Element => {
+    Content = (props:PropsSignature):React.JSX.Element => {
         const
             // extract props
             {data} = props,
@@ -18,8 +16,8 @@ const
             {htmlContents} = data;
 
         // return component
-        return <article className="markdown-body" dangerouslySetInnerHTML={{__html: htmlContents}} />;
+        return <section className="markdown-body" dangerouslySetInnerHTML={{__html: htmlContents}} />;
     };
 
 // export component
-export default Article;
+export default Content;

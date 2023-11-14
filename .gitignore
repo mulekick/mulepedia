@@ -13,3 +13,5 @@ external.test.*
 vercel.token
 .next
 .vercel
+robots.txt
+sitemap.xml

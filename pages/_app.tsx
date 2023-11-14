@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types, react/react-in-jsx-scope */
+/* eslint-disable node/no-unpublished-import */
 
 // import modules
 import React from "react";

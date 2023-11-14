@@ -1,7 +1,6 @@
-/* eslint-disable node/no-process-env */
+/* eslint-disable node/no-unpublished-import */
 
 // import primitives
-import process from "node:process";
 import path from "node:path";
 import {readFile} from "node:fs/promises";
 
@@ -19,8 +18,10 @@ export interface FileMetadata {
     relativePath:string;
     title:string;
     description:string;
+    keywords:string;
     index:number;
     publish:boolean;
+    canonicalUrl:string|null;
 }
 
 export interface FileContents extends FileMetadata {
@@ -28,6 +29,10 @@ export interface FileContents extends FileMetadata {
 }
 
 const
+
+    // domain
+    DOMAIN = `https://mulepedia.vercel.app`,
+
     // symlink to *.md files directory
     docsDirectory = `docs`,
     // -------------------------------------------------
@@ -65,14 +70,16 @@ const
             .map((x:readdirp.EntryInfo, i:number):FileMetadata => {
                 const
                     // parse the file metadata section
-                    {data: {title, description, index, publish}} = matter(filesContents.at(i) ?? ``);
+                    {data: {title, description, keywords, index, publish}} = matter(filesContents.at(i) ?? ``);
 
                 return {
                     // uniquely identify each file by its relative path - remove extension
                     // use dot notation to avoid shadowing path primitive
-                    relativePath: path.join(docsDirectory, x.path.replace(/\.md$/u, ``)),
+                    relativePath: path.join(x.path.replace(/\.md$/u, ``)),
                     // eslint-disable-next-line object-property-newline
-                    title, description, index, publish
+                    title, description, keywords, index, publish,
+                    // canonical url isn't relevant here (index page)
+                    canonicalUrl: null
                 };
             })
             // filter by publishing status
@@ -91,24 +98,27 @@ const
         // the resulting array will be used to identify each file and create a route for it
         // generated routes will be handled by the catch-all segment pages/[...file].jsx
         // see https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes
-        return files.map((x:readdirp.EntryInfo):FileRelativePath => ({params: {file: [ docsDirectory, ...x.path.replace(/\.md$/u, ``).split(`/`) ]}}));
+        // docs directory is not included as a route segment for SEO purposes
+        return files.map((x:readdirp.EntryInfo):FileRelativePath => ({params: {file: x.path.replace(/\.md$/u, ``).split(`/`)}}));
     },
     // -------------------------------------------------
     // handle dynamic routing - retrieve and format file contents
     readFileContents = async(filePathSegments:Array<string>):Promise<FileContents> => {
         const
-            // reconstruct relative path, append file extension
-            relativePath = `${ path.join(...filePathSegments) }.md`,
-            // retrieve file contents
-            fileContents = await readFile(relativePath, `utf8`),
+            // reconstruct relative path
+            relativePath = path.join(...filePathSegments),
+            // create canonical url for meta tags
+            canonicalUrl = `${ DOMAIN }/${ relativePath }`,
+            // retrieve file contents, append file extension
+            fileContents = await readFile(`${ docsDirectory }/${ relativePath }.md`, `utf8`),
             // parse the file metadata and contents section
-            {data: {title, description, index, publish}, content} = matter(fileContents),
+            {data: {title, description, keywords, index, publish}, content} = matter(fileContents),
             // no authentication required to access the github markdown api ...
             octokit = new Octokit(),
             // parse the file markdown content into html
             formattedHtml = await octokit.request(`POST /markdown`, {
                 // replace .md by .html in inner links for consistency
-                text: content.replace(/\.md(?=\))/gu, process.env.NODE_ENV === `production` ? `.html` : ``),
+                text: content.replace(/\.md(?=\))/gu, ``),
                 headers: {
                     'X-GitHub-Api-Version': `2022-11-28`,
                     accept: `application/vnd.github+json`
@@ -122,8 +132,8 @@ const
             // export html content
             htmlContents: formattedHtml.data,
             // eslint-disable-next-line object-property-newline
-            title, description, index, publish
+            title, description, keywords, index, publish, canonicalUrl
         };
     };
 
-export {readFiles, readFilesPaths, readFileContents};
+export {DOMAIN, readFiles, readFilesPaths, readFileContents};
