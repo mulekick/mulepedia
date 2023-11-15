@@ -4,10 +4,8 @@ import {GetStaticProps, GetStaticPropsContext} from "next";
 import Layout from "../components/layout.tsx";
 import Content from "../components/content.tsx";
 
-// declare interfaces
-interface PropsSignature {
-    htmlContents:string
-}
+// import interfaces
+import {NotFoundPageProps} from "../lib/interfaces.ts";
 
 const
     // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars, arrow-body-style
@@ -21,14 +19,14 @@ export {getStaticProps};
 
 const
     // page component
-    PageNotFound = (props:PropsSignature):React.JSX.Element => {
+    PageNotFound = (props:NotFoundPageProps):React.JSX.Element => {
         const
             // extract props
             {htmlContents} = props;
 
         // return component
         return <Layout
-            index={false}
+            homepage={false}
             title={ `No matching content found` }
             description={ `Nothing to see here` }
             keywords={ `` }

@@ -1,14 +1,12 @@
 // import modules
 import React from "react";
 
-// declare interfaces
-interface PropsSignature {
-    data:{htmlContents:string}
-}
+// import interfaces
+import {ContentProps} from "../lib/interfaces.ts";
 
 const
     // page component
-    Content = (props:PropsSignature):React.JSX.Element => {
+    Content = (props:ContentProps):React.JSX.Element => {
         const
             // extract props
             {data} = props,

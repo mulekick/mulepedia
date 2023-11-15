@@ -15,13 +15,10 @@ import {GetStaticProps, GetStaticPropsContext} from "next";
 import Layout from "../components/layout.tsx";
 import Content from "../components/content.tsx";
 import {Octokit} from "@octokit/core";
-import {FileMetadata, readFiles} from "../lib/helpers.ts";
+import {readFiles} from "../lib/helpers.ts";
 
-// declare interfaces
-interface PropsSignature {
-    htmlContents:string,
-    canonicalUrl:string
-}
+// import interfaces
+import {FileMetadata, HomePageProps} from "../lib/interfaces.ts";
 
 const
     // async retrieval of props for static site generation
@@ -75,14 +72,14 @@ export {getStaticProps};
 
 const
     // page component
-    HomePage = (props:PropsSignature):React.JSX.Element => {
+    HomePage = (props:HomePageProps):React.JSX.Element => {
         const
             // extract props
             {htmlContents, canonicalUrl} = props;
 
         // return component
         return <Layout
-            index={true}
+            homepage={true}
             title={ `Documentation index` }
             description={ `Tech related digests, cheatsheets and howtos ...` }
             keywords={ `mulepedia,homepage,tech,digest,cheatsheet` }

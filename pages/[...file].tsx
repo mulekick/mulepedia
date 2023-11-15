@@ -3,12 +3,10 @@ import React from "react";
 import {GetStaticPaths, GetStaticProps, GetStaticPropsContext} from "next";
 import Layout from "../components/layout.tsx";
 import Content from "../components/content.tsx";
-import {FileRelativePath, FileContents, readFilesPaths, readFileContents} from "../lib/helpers.ts";
+import {readFilesPaths, readFileContents} from "../lib/helpers.ts";
 
-// declare interfaces
-interface PropsSignature {
-    data:FileContents
-}
+// import interfaces
+import {FileRelativePath, DocumentationPageProps} from "../lib/interfaces.ts";
 
 const
     // async retrieval of ids to populate the
@@ -36,14 +34,14 @@ export {getStaticProps, getStaticPaths};
 
 const
     // page component
-    DocumentationPage = (props:PropsSignature):React.JSX.Element => {
+    DocumentationPage = (props:DocumentationPageProps):React.JSX.Element => {
         const
             // extract props
             {data} = props;
 
         // return component
         return <Layout
-            index={false}
+            homepage={false}
             title={ data.title }
             description={ data.description }
             keywords={ data.keywords }

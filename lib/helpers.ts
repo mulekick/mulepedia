@@ -8,25 +8,7 @@ import {readFile} from "node:fs/promises";
 import readdirp from "readdirp";
 import matter from "gray-matter";
 import {Octokit} from "@octokit/core";
-
-// declare interfaces
-export interface FileRelativePath {
-    params:{file:Array<string>}
-}
-
-export interface FileMetadata {
-    relativePath:string;
-    title:string;
-    description:string;
-    keywords:string;
-    index:number;
-    publish:boolean;
-    canonicalUrl:string|null;
-}
-
-export interface FileContents extends FileMetadata {
-    htmlContents:string;
-}
+import {FileRelativePath, FileMetadata, PageContents} from "./interfaces.ts";
 
 const
 
@@ -77,9 +59,7 @@ const
                     // use dot notation to avoid shadowing path primitive
                     relativePath: path.join(x.path.replace(/\.md$/u, ``)),
                     // eslint-disable-next-line object-property-newline
-                    title, description, keywords, index, publish,
-                    // canonical url isn't relevant here (index page)
-                    canonicalUrl: null
+                    title, description, keywords, index, publish
                 };
             })
             // filter by publishing status
@@ -103,7 +83,7 @@ const
     },
     // -------------------------------------------------
     // handle dynamic routing - retrieve and format file contents
-    readFileContents = async(filePathSegments:Array<string>):Promise<FileContents> => {
+    readFileContents = async(filePathSegments:Array<string>):Promise<PageContents> => {
         const
             // reconstruct relative path
             relativePath = path.join(...filePathSegments),

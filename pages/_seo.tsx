@@ -4,10 +4,10 @@ import {writeFile} from "node:fs/promises";
 
 // import modules
 import {GetStaticProps, GetStaticPropsContext} from "next";
-import {DOMAIN, FileMetadata, readFiles} from "../lib/helpers.ts";
+import {DOMAIN, readFiles} from "../lib/helpers.ts";
 
-// declare interfaces
-interface PropsSignature {}
+// import interfaces
+import {FileMetadata, EmptyProps} from "../lib/interfaces.ts";
 
 const
 
@@ -37,7 +37,7 @@ const
         const sitemap:string = `<?xml version="1.0" encoding="UTF-8"?>\n` +
                                `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
                                `    <url>\n` +
-                               `        <loc>${ DOMAIN }/index.html</loc>\n` +
+                               `        <loc>${ DOMAIN }/</loc>\n` +
                                `        <priority>1.0</priority>\n` +
                                `    </url>\n` +
                                `${ String(sitemapLinks) }` +
@@ -66,7 +66,7 @@ export {getStaticProps};
 
 const
     // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-    SiteMap = (props:PropsSignature):undefined => {
+    SiteMap = (props:EmptyProps):undefined => {
         // ...
     };
 

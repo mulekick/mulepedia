@@ -8,23 +8,16 @@ import Image from "next/image.js";
 // import modules
 import React from "react";
 
-// declare interfaces
-interface PropsSignature {
-    index:boolean,
-    title:string,
-    description:string,
-    keywords:string;
-    canonicalUrl:string|null;
-    outletComponent:React.JSX.Element
-}
+// import interfaces
+import {LayoutProps} from "../lib/interfaces.ts";
 
 const
 
     // app layout component
-    Layout = (props:PropsSignature):React.JSX.Element => {
+    Layout = (props:LayoutProps):React.JSX.Element => {
         const
             // extract props
-            {index, title, description, keywords, canonicalUrl, outletComponent} = props;
+            {homepage, title, description, keywords, canonicalUrl, outletComponent} = props;
 
         // return component
         return <>
@@ -58,7 +51,7 @@ const
                             <meta property="og:image:height" content="445" />
 
                             {
-                                index ?
+                                homepage ?
                                     // identify home page as a website
                                     <meta property="og:type" content="website" /> :
                                     // else, identify as an article (can't return a fragment here for some reason ...)
@@ -82,7 +75,7 @@ const
             </Head>
             <nav>
                 <Image src="/hackermans.png" height={ 75 } width={ 75 } alt="Everyday" />
-                { index ? <span className="page-title">This is the home page</span> : <Link className="page-title" href={ `/` }>Back to the home page</Link> }
+                { homepage ? <span className="page-title">This is the home page</span> : <Link className="page-title" href={ `/` }>Back to the home page</Link> }
                 <Image src="/hackermans.png" height={ 75 } width={ 75 } alt="Everyday" />
             </nav>
             {/* the nav + container pattern has to be implemented here */}
