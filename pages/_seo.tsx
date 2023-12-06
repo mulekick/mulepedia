@@ -7,7 +7,7 @@ import {GetStaticProps, GetStaticPropsContext} from "next";
 import {DOMAIN, readFiles} from "../lib/helpers.ts";
 
 // import interfaces
-import {FileMetadata, EmptyProps} from "../lib/interfaces.ts";
+import {FileMetadata} from "../lib/interfaces.ts";
 
 const
 
@@ -66,7 +66,7 @@ export {getStaticProps};
 
 const
     // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-    SiteMap = (props:EmptyProps):undefined => {
+    SiteMap = (props:Record<string, never>):undefined => {
         // ...
     };
 

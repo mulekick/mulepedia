@@ -27,8 +27,6 @@ export interface PageContents extends FileMetadata, HTMLContents {
 }
 
 // components interfaces
-export interface EmptyProps {}
-
 export interface LayoutProps {
     homepage:boolean,
     // seo

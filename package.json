@@ -18,19 +18,19 @@
         "reset": "rm -rf .next .vercel"
     },
     "dependencies": {
-        "next": "^14.0.2",
+        "next": "^14.0.3",
         "react": "^18.2.0",
         "react-dom": "^18.2.0"
     },
     "devDependencies": {
         "@mulekick/eslint-config-muleslint": "^1.0.3",
-        "@next/eslint-plugin-next": "^14.0.2",
-        "@octokit/core": "^5.0.1",
-        "@types/node": "^20.9.0",
-        "@types/react": "18.2.37",
-        "@types/react-dom": "^18.2.15",
-        "@typescript-eslint/eslint-plugin": "^6.11.0",
-        "@typescript-eslint/parser": "^6.11.0",
+        "@next/eslint-plugin-next": "^14.0.3",
+        "@octokit/core": "^5.0.2",
+        "@types/node": "^20.10.0",
+        "@types/react": "18.2.38",
+        "@types/react-dom": "^18.2.17",
+        "@typescript-eslint/eslint-plugin": "^6.12.0",
+        "@typescript-eslint/parser": "^6.12.0",
         "eslint-plugin-react": "^7.33.2",
         "eslint-plugin-react-hooks": "^4.6.0",
         "github-markdown-css": "^5.4.0",
@@ -38,7 +38,7 @@
         "readdirp": "^3.6.0",
         "sass": "^1.69.5",
         "sharp": "^0.32.6",
-        "vercel": "^32.5.3"        
+        "vercel": "^32.5.6"        
     },
     "engines": {
         "node": ">=16.16.0",

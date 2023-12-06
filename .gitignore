@@ -15,4 +15,5 @@ vercel.token
 .vercel
 robots.txt
 sitemap.xml
+sm.xml
 google*.html
