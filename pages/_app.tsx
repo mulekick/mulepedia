@@ -1,5 +1,3 @@
-/* eslint-disable node/no-unpublished-import */
-
 // import modules
 import React from "react";
 import {AppProps} from "next/app.js";
@@ -10,10 +8,9 @@ import "../scss/main.scss";
 
 const
     // create the app wrapper component
-    AppWrapper = (props:AppProps):React.JSX.Element => {
-        const
-            // extract props
-            {Component, pageProps} = props;
+    AppWrapper = (props: AppProps): React.JSX.Element => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const {Component, pageProps} = props;
 
         return <Component { ...pageProps } />;
     };

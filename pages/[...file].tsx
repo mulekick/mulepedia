@@ -11,15 +11,15 @@ import {FileRelativePath, DocumentationPageProps} from "../lib/interfaces.ts";
 const
     // async retrieval of ids to populate the
     // list of pages to statically generate
-    getStaticPaths:GetStaticPaths = async() => {
+    getStaticPaths: GetStaticPaths = async() => {
         const
             // async retrieval
-            paths:Array<FileRelativePath> = await readFilesPaths();
+            paths: Array<FileRelativePath> = await readFilesPaths();
 
         return {paths, fallback: false};
     },
     // async retrieval of props for static site generation
-    getStaticProps:GetStaticProps = async(context:GetStaticPropsContext) => {
+    getStaticProps: GetStaticProps = async(context: GetStaticPropsContext) => {
         const
             // read context
             {params} = context,
@@ -34,20 +34,22 @@ export {getStaticProps, getStaticPaths};
 
 const
     // page component
-    DocumentationPage = (props:DocumentationPageProps):React.JSX.Element => {
+    DocumentationPage = (props: DocumentationPageProps): React.JSX.Element => {
         const
             // extract props
             {data} = props;
 
         // return component
-        return <Layout
-            homepage={false}
-            title={ data.title }
-            description={ data.description }
-            keywords={ data.keywords }
-            canonicalUrl={ data.canonicalUrl }
-            outletComponent={ <Content data={ data }/> }
-        />;
+        return (
+            <Layout
+                homepage={ false }
+                title={ data.title }
+                description={ data.description }
+                keywords={ data.keywords }
+                canonicalUrl={ data.canonicalUrl }
+                outletComponent={ <Content data={ data } /> }
+            />
+        );
     };
 
 // export page as default

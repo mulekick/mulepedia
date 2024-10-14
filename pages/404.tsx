@@ -8,8 +8,8 @@ import Content from "../components/content.tsx";
 import {NotFoundPageProps} from "../lib/interfaces.ts";
 
 const
-    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars, arrow-body-style
-    getStaticProps:GetStaticProps = (context:GetStaticPropsContext) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, arrow-body-style
+    getStaticProps: GetStaticProps = (context: GetStaticPropsContext) => {
         // pass object as props to the page
         return {props: {htmlContents: `<h1>Guess what it's a 404</h1>`}};
     };
@@ -19,20 +19,22 @@ export {getStaticProps};
 
 const
     // page component
-    PageNotFound = (props:NotFoundPageProps):React.JSX.Element => {
+    PageNotFound = (props: NotFoundPageProps): React.JSX.Element => {
         const
             // extract props
             {htmlContents} = props;
 
         // return component
-        return <Layout
-            homepage={false}
-            title={ `No matching content found` }
-            description={ `Nothing to see here` }
-            keywords={ `` }
-            canonicalUrl={ null }
-            outletComponent={ <Content data={ {htmlContents} }/> }
-        />;
+        return (
+            <Layout
+                homepage={ false }
+                title={ `No matching content found` }
+                description={ `Nothing to see here` }
+                keywords={ `` }
+                canonicalUrl={ null }
+                outletComponent={ <Content data={ {htmlContents} } /> }
+            />
+        );
     };
 
 // export page as default

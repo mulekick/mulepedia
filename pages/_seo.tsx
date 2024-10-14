@@ -1,4 +1,5 @@
-/* eslint-disable node/no-process-env */
+/* eslint-disable @stylistic/indent-binary-ops */
+
 // import primitives
 import {writeFile} from "node:fs/promises";
 
@@ -11,17 +12,17 @@ import {FileMetadata} from "../lib/interfaces.ts";
 
 const
 
-    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-    getStaticProps:GetStaticProps = async(context:GetStaticPropsContext) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    getStaticProps: GetStaticProps = async(context: GetStaticPropsContext) => {
         const
             // retrieve list of files
-            data:Array<FileMetadata> = await readFiles();
+            data: Array<FileMetadata> = await readFiles();
 
         let
             // generate markdown on the fly
             sitemapLinks = ``;
 
-        data.forEach((x:FileMetadata):undefined => {
+        data.forEach((x: FileMetadata): undefined => {
             const
                 // extract variables
                 {relativePath} = x;
@@ -34,12 +35,13 @@ const
         });
 
         // return sitemap
-        const sitemap:string = `<?xml version="1.0" encoding="UTF-8"?>\n` +
+        const sitemap: string = `<?xml version="1.0" encoding="UTF-8"?>\n` +
                                `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
                                `    <url>\n` +
                                `        <loc>${ DOMAIN }/</loc>\n` +
                                `        <priority>1.0</priority>\n` +
                                `    </url>\n` +
+                               // eslint-disable-next-line @typescript-eslint/no-unnecessary-template-expression
                                `${ String(sitemapLinks) }` +
                                `</urlset>`;
 
@@ -47,7 +49,7 @@ const
         await writeFile(`./public/sitemap.xml`, sitemap, {encoding: `utf8`});
 
         // return robots.txt
-        const robots:string = `# allow crawling and indexing of the whole site\n` +
+        const robots: string = `# allow crawling and indexing of the whole site\n` +
                                `User-agent: *\n` +
                                `Disallow:\n` +
                                `\n` +
@@ -65,8 +67,8 @@ const
 export {getStaticProps};
 
 const
-    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-    SiteMap = (props:Record<string, never>):undefined => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    SiteMap = (props: Record<string, never>): undefined => {
         // ...
     };
 

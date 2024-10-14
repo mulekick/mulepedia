@@ -2,53 +2,53 @@
 import React from "react";
 
 // general interfaces
-
 interface HTMLContents {
-    htmlContents:string;
+    htmlContents: string;
 }
 
 // files interfaces
 export interface FileRelativePath {
-    params:{file:Array<string>}
+    params: {file: Array<string>};
 }
 
 export interface FileMetadata {
-    relativePath:string;
-    title:string;
-    description:string;
-    keywords:string;
-    index:number;
-    publish:boolean;
+    relativePath: string;
+    title: string;
+    description: string;
+    keywords: string;
+    index: number;
+    publish: boolean;
 }
 
 export interface PageContents extends FileMetadata, HTMLContents {
-    canonicalUrl:string|null;
-    htmlContents:string;
+    canonicalUrl: string | null;
+    htmlContents: string;
 }
 
 // components interfaces
 export interface LayoutProps {
-    homepage:boolean,
+    homepage: boolean;
     // seo
-    title:string,
-    description:string,
-    keywords:string;
-    canonicalUrl:string|null;
+    title: string;
+    description: string;
+    keywords: string;
+    canonicalUrl: string | null;
     // component
-    outletComponent:React.JSX.Element
+    outletComponent: React.JSX.Element;
 }
 
 export interface ContentProps {
-    data:{htmlContents:string}
+    data: {htmlContents: string};
 }
 
 // pages interfaces
 export interface HomePageProps extends HTMLContents {
-    canonicalUrl:string
+    canonicalUrl: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface NotFoundPageProps extends HTMLContents {}
 
 export interface DocumentationPageProps {
-    data:PageContents
+    data: PageContents;
 }
