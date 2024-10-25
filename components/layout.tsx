@@ -7,8 +7,8 @@ import Image from "next/image.js";
 // import modules
 import React, {Fragment} from "react";
 
-// import interfaces
-import {LayoutProps} from "../lib/interfaces.ts";
+// import types
+import type {LayoutProps} from "../lib/interfaces.ts";
 
 const
 

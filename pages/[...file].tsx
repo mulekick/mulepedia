@@ -1,12 +1,12 @@
 // import modules
 import React from "react";
-import {GetStaticPaths, GetStaticProps, GetStaticPropsContext} from "next";
 import Layout from "../components/layout.tsx";
 import Content from "../components/content.tsx";
 import {readFilesPaths, readFileContents} from "../lib/helpers.ts";
 
-// import interfaces
-import {FileRelativePath, DocumentationPageProps} from "../lib/interfaces.ts";
+// import types
+import type {GetStaticPaths, GetStaticProps, GetStaticPropsContext} from "next";
+import type {FileRelativePath, DocumentationPageProps} from "../lib/interfaces.ts";
 
 const
     // async retrieval of ids to populate the

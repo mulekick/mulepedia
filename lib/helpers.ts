@@ -7,7 +7,9 @@ import readdirp from "readdirp";
 import matter from "gray-matter";
 // eslint-disable-next-line node/no-missing-import
 import {Octokit} from "@octokit/core";
-import {FileRelativePath, FileMetadata, PageContents} from "./interfaces.ts";
+
+// import types
+import type {FileRelativePath, FileMetadata, PageContents} from "./interfaces.ts";
 
 const
 

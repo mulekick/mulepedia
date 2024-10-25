@@ -4,11 +4,11 @@
 import {writeFile} from "node:fs/promises";
 
 // import modules
-import {GetStaticProps, GetStaticPropsContext} from "next";
 import {DOMAIN, readFiles} from "../lib/helpers.ts";
 
-// import interfaces
-import {FileMetadata} from "../lib/interfaces.ts";
+// import types
+import type {GetStaticProps, GetStaticPropsContext} from "next";
+import type {FileMetadata} from "../lib/interfaces.ts";
 
 const
 

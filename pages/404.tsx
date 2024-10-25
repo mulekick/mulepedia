@@ -1,11 +1,11 @@
 // import modules
 import React from "react";
-import {GetStaticProps, GetStaticPropsContext} from "next";
 import Layout from "../components/layout.tsx";
 import Content from "../components/content.tsx";
 
-// import interfaces
-import {NotFoundPageProps} from "../lib/interfaces.ts";
+// import types
+import type {GetStaticProps, GetStaticPropsContext} from "next";
+import type {NotFoundPageProps} from "../lib/interfaces.ts";
 
 const
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, arrow-body-style

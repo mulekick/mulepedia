@@ -8,15 +8,15 @@
 
 // import modules
 import React from "react";
-import {GetStaticProps, GetStaticPropsContext} from "next";
 import Layout from "../components/layout.tsx";
 import Content from "../components/content.tsx";
 // eslint-disable-next-line node/no-missing-import
 import {Octokit} from "@octokit/core";
 import {readFiles} from "../lib/helpers.ts";
 
-// import interfaces
-import {FileMetadata, HomePageProps} from "../lib/interfaces.ts";
+// import types
+import type {GetStaticProps, GetStaticPropsContext} from "next";
+import type {FileMetadata, HomePageProps} from "../lib/interfaces.ts";
 
 const
     // async retrieval of props for static site generation

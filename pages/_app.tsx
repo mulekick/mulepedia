@@ -1,6 +1,8 @@
 // import modules
 import React from "react";
-import {AppProps} from "next/app.js";
+
+// import types
+import type {AppProps} from "next/app.js";
 
 // force dark theme
 import "github-markdown-css/github-markdown-dark.css";

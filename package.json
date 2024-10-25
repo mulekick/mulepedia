@@ -1,6 +1,6 @@
 {
     "name": "mulepedia",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "private": true,
     "description": "Personal documentation website built using next.js static site generation features",
     "type": "module",
@@ -8,7 +8,7 @@
         "list": "npx tsc --project tsconfig.json --listFilesOnly | sort",
         "typecheck": "npx tsc --project tsconfig.json --noEmit --emitDeclarationOnly false && echo 'type checking was successful'",
         "dev": "next dev . -p 8085",
-        "lint": "next lint",
+        "lint": "npx eslint .",
         "build": "next build .",
         "prod": "next start . -p 8080",
         "live": "docker container run --rm -d --mount type=bind,source=$(realpath .vercel/output/static),target=/data/static,ro=true -p 8080:80 mulekick/serve-static:latest > /tmp/static-container-id",
@@ -18,19 +18,19 @@
         "reset": "rm -rf .next .vercel"
     },
     "dependencies": {
-        "next": "^14.2.15"
+        "next": "^15.0.1"
     },
     "devDependencies": {
         "@mulekick/eslint-config-muleslint": "^2.0.6",
-        "@next/eslint-plugin-next": "^14.2.15",
+        "@next/eslint-plugin-next": "^15.0.1",
         "@octokit/core": "^6.1.2",
-        "@types/node": "^22.7.5",
-        "@types/react": "^18.3.11",
+        "@types/node": "^22.8.0",
+        "@types/react": "^18.3.12",
         "@types/react-dom": "^18.3.1",
-        "@typescript-eslint/eslint-plugin": "^8.8.1",
-        "@typescript-eslint/parser": "^8.8.1",
+        "@typescript-eslint/eslint-plugin": "^8.11.0",
+        "@typescript-eslint/parser": "^8.11.0",
         "eslint": "^8.57.1",
-        "eslint-plugin-react": "^7.37.1",
+        "eslint-plugin-react": "^7.37.2",
         "eslint-plugin-react-hooks": "^5.0.0",
         "github-markdown-css": "^5.7.0",
         "globals": "^13.24.0",
@@ -38,10 +38,10 @@
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
         "readdirp": "^3.6.0",
-        "sass": "^1.79.5",
+        "sass": "^1.80.4",
         "sharp": "^0.33.5",
         "typescript": "^5.6.3",
-        "vercel": "^37.8.0"
+        "vercel": "^37.12.1"
     },
     "engines": {
         "node": ">=20.17.0",

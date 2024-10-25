@@ -1,8 +1,8 @@
 // import modules
 import React from "react";
 
-// import interfaces
-import {ContentProps} from "../lib/interfaces.ts";
+// import types
+import type {ContentProps} from "../lib/interfaces.ts";
 
 const
     // page component

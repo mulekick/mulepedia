@@ -1,35 +1,39 @@
 {
     "compilerOptions": {
-        // allow file extensions in imports
-        "allowImportingTsExtensions": true,
+        // do not use compilation cache
+        "incremental": false,
         // ECMA support for targeted environments
         "target": "es6",
         // include Web API types definitions
         "lib": [ "dom", "dom.iterable", "esnext" ],
-        // allow javascript files
-        "allowJs": true,
-        // do not type check .d.ts files
-        "skipLibCheck": true,
-        // enable strict type checking options
-        "strict": true,
-        // check imports case
-        "forceConsistentCasingInFileNames": true,
-        // do not emit files after compilation
-        "noEmit": true,
-        // do not use compilation cache
-        "incremental": false,
-        // support commonjs in builds
-        "esModuleInterop": true,
+        // perserve jsx syntax for further transformation
+        "jsx": "preserve",
         // use ECMAScript modules
         "module": "esnext",
         // use node algorithm for modules resolution
         "moduleResolution": "node",
+        // prefer explicit types imports
+        "types": [],    
         // support json files imports
         "resolveJsonModule": true,
+        // allow file extensions in imports
+        "allowImportingTsExtensions": true,
+        // allow javascript files
+        "allowJs": true,
+        // do not emit files after compilation
+        "noEmit": true,
         // warn for problematic code for single-file transpilation
         "isolatedModules": true,
-        // perserve jsx syntax for further transformation
-        "jsx": "preserve"
+        // be explicit about type-only imports
+        "verbatimModuleSyntax": true,
+        // support commonjs in builds
+        "esModuleInterop": true,
+        // check imports case
+        "forceConsistentCasingInFileNames": true,
+        // enable strict type checking options
+        "strict": true,
+        // do not type check .d.ts files
+        "skipLibCheck": true
     },
     "include": [
         "next-env.d.ts",
