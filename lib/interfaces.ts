@@ -14,6 +14,7 @@ export interface FileRelativePath {
 export interface FileMetadata {
     relativePath: string;
     title: string;
+    category: string;
     description: string;
     keywords: string;
     index: number;
@@ -46,9 +47,8 @@ export interface HomePageProps extends HTMLContents {
     canonicalUrl: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface NotFoundPageProps extends HTMLContents {}
-
 export interface DocumentationPageProps {
     data: PageContents;
 }
+
+export type NotFoundPageProps = HTMLContents;

@@ -7,35 +7,30 @@ import Content from "../components/content.tsx";
 import type {GetStaticProps, GetStaticPropsContext} from "next";
 import type {NotFoundPageProps} from "../lib/interfaces.ts";
 
-const
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars, arrow-body-style
-    getStaticProps: GetStaticProps = (context: GetStaticPropsContext) => {
-        // pass object as props to the page
-        return {props: {htmlContents: `<h1>Guess what it's a 404</h1>`}};
-    };
-
 // export static site generation function in a namespace ...
-export {getStaticProps};
+export const getStaticProps: GetStaticProps = (context: GetStaticPropsContext) => {
+    // typescript
+    void context;
+    // pass object as props to the page
+    return {props: {htmlContents: `<h1>Guess what it's a 404</h1>`}};
+};
 
-const
-    // page component
-    PageNotFound = (props: NotFoundPageProps): React.JSX.Element => {
-        const
-            // extract props
-            {htmlContents} = props;
-
-        // return component
-        return (
-            <Layout
-                homepage={ false }
-                title={ `No matching content found` }
-                description={ `Nothing to see here` }
-                keywords={ `` }
-                canonicalUrl={ null }
-                outletComponent={ <Content data={ {htmlContents} } /> }
-            />
-        );
-    };
+// page component
+const PageNotFound = (props: NotFoundPageProps): React.JSX.Element => {
+    // extract props
+    const {htmlContents} = props;
+    // return component
+    return (
+        <Layout
+            homepage={ false }
+            title={ `No matching content found` }
+            description={ `Nothing to see here` }
+            keywords={ `` }
+            canonicalUrl={ null }
+            outletComponent={ <Content data={ {htmlContents} } /> }
+        />
+    );
+};
 
 // export page as default
 export default PageNotFound;
