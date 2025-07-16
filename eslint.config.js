@@ -6,5 +6,5 @@ import typescript from "typescript-eslint";
 
 // extend from next recommended config
 export default typescript.config(...muleslint, {
-    ignores: [ `**/node_modules/**`, `**/.next/**`, `**/.vercel/**`, `**/build/**`, `**/out/**`, `**/standalone/**` ]
+    ignores: [ `next-env.d.ts`, `**/node_modules/**`, `**/.next/**`, `**/.vercel/**`, `**/build/**`, `**/out/**`, `**/standalone/**` ]
 });

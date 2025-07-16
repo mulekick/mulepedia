@@ -18,34 +18,30 @@
         "reset": "rm -rf .next .vercel"
     },
     "dependencies": {
-        "next": "^15.3.3"
+        "next": "^15.4.1"
     },
     "devDependencies": {
-        "@mulekick/eslint-config-muleslint": "^2.2.2",
-        "@next/eslint-plugin-next": "^15.3.3",
-        "@octokit/core": "^7.0.2",
-        "@types/node": "^24.0.1",
-        "@types/react": "^19.1.8",
-        "@types/react-dom": "^19.1.6",
-        "@typescript-eslint/eslint-plugin": "^8.34.0",
-        "@typescript-eslint/parser": "^8.34.0",
-        "eslint": "^9.29.0",
-        "eslint-plugin-react": "^7.37.5",
-        "eslint-plugin-react-hooks": "^5.2.0",
+        "@mulekick/eslint-config-muleslint": "^2.2.3",
+        "@next/eslint-plugin-next": "^15.4.1",
+        "@octokit/core": "^7.0.3",
+        "@types/node": "^24.0.14",
+        "@types/react": "^18.3.1",
+        "@types/react-dom": "^18.3.1",
+        "eslint": "^9.31.0",
         "github-markdown-css": "^5.8.1",
-        "globals": "^16.2.0",
+        "globals": "^16.3.0",
         "gray-matter": "^4.0.3",
-        "react": "^19.1.0",
-        "react-dom": "^19.1.0",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
         "readdirp": "^3.6.0",
         "sass": "^1.89.2",
-        "sharp": "^0.34.2",
+        "sharp": "^0.34.3",
         "typescript": "^5.8.3",
-        "vercel": "^43.1.0"
+        "vercel": "^44.4.3"
     },
     "engines": {
-        "node": ">=20.17.0",
-        "npm": ">=10.8.3"
+        "node": ">=v22.15.0",
+        "npm": ">=11.3.0"
     },
     "os": [
         "linux"
