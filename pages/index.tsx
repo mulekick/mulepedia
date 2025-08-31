@@ -1,3 +1,5 @@
+/* eslint-disable n/no-process-env */
+
 /**
  * Page rendered using static site generation :
  * - all the necessary data is already present
@@ -5,6 +7,9 @@
  * - hydration will happen during build time and not client side
  * - some JS code will run on the page still
  */
+
+// import primitives
+import process from "node:process";
 
 // import modules
 import React from "react";
@@ -48,11 +53,16 @@ export const getStaticProps: GetStaticProps = async(context: GetStaticPropsConte
         content += `- [${ title }](${ relativePath })\n`;
     });
 
+    // throw of github token is missing
+    if (typeof process.env.GITHUB_TOKEN !== `string` || !process.env.GITHUB_TOKEN.length)
+        throw new Error(`invalid github token`);
+
     // parse the file markdown content into html
     const formattedHtml = await octokit.request(`POST /markdown`, {
         text: content,
         headers: {
             'X-GitHub-Api-Version': `2022-11-28`,
+            Authorization: `token ${ process.env.GITHUB_TOKEN }`,
             accept: `application/vnd.github+json`
         }
     }) as {data: string};

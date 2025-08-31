@@ -1,4 +1,7 @@
+/* eslint-disable n/no-process-env */
+
 // import primitives
+import process from "node:process";
 import path from "node:path";
 import {readFile} from "node:fs/promises";
 
@@ -93,12 +96,16 @@ export const readFileContents = async(filePathSegments: Array<string>): Promise<
     const {data: {title, category, description, keywords, index, publish}, content} = matter(fileContents) as unknown as {data: FileMetadata; content: string};
     // no authentication required to access the github markdown api ...
     const octokit = new Octokit();
+    // throw of github token is missing
+    if (typeof process.env.GITHUB_TOKEN !== `string` || !process.env.GITHUB_TOKEN.length)
+        throw new Error(`invalid github token`);
     // parse the file markdown content into html
     const formattedHtml = await octokit.request(`POST /markdown`, {
         // replace .md by .html in inner links for consistency
         text: content.replace(/\.md(?=\))/gu, ``),
         headers: {
             'X-GitHub-Api-Version': `2022-11-28`,
+            Authorization: `token ${ process.env.GITHUB_TOKEN }`,
             accept: `application/vnd.github+json`
         }
     }) as {data: string};

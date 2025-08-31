@@ -10,6 +10,7 @@ standalone
 # projects specifics
 docs
 external.test.*
+.env
 vercel.token
 .next
 .vercel
