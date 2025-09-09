@@ -37,7 +37,7 @@
         "sass": "^1.89.2",
         "sharp": "^0.34.3",
         "typescript": "^5.8.3",
-        "vercel": "^44.4.3"
+        "vercel": "^47.0.5"
     },
     "engines": {
         "node": ">=v22.15.0",

@@ -71,7 +71,7 @@ const Layout = (props: LayoutProps): React.JSX.Element => {
             </Head>
             <nav>
                 <Image src={ `/hackermans.png` } height={ 75 } width={ 75 } alt={ `Everyday` } />
-                { homepage ? <span className={ `page-title` }>{ `This is the home page` }</span> : <Link className={ `page-title` } href={ `/` }>{ `Back to the home page` }</Link> }
+                { homepage ? <span className={ `page-title` }>{ `Welcome to Mulepedia` }</span> : <Link className={ `page-title` } href={ `/` }>{ `Back to the home page` }</Link> }
                 <Image src={ `/hackermans.png` } height={ 75 } width={ 75 } alt={ `Everyday` } />
             </nav>
             { /* the nav + container pattern has to be implemented here */ }

@@ -96,7 +96,7 @@ export const readFileContents = async(filePathSegments: Array<string>): Promise<
     const {data: {title, category, description, keywords, index, publish}, content} = matter(fileContents) as unknown as {data: FileMetadata; content: string};
     // no authentication required to access the github markdown api ...
     const octokit = new Octokit();
-    // throw of github token is missing
+    // throw if github token is missing
     if (typeof process.env.GITHUB_TOKEN !== `string` || !process.env.GITHUB_TOKEN.length)
         throw new Error(`invalid github token`);
     // parse the file markdown content into html

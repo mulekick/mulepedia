@@ -13,6 +13,7 @@ import process from "node:process";
 
 // import modules
 import React from "react";
+import Script from "next/script";
 import Layout from "../components/layout.tsx";
 import Content from "../components/content.tsx";
 // eslint-disable-next-line import/no-unresolved
@@ -38,22 +39,30 @@ export const getStaticProps: GetStaticProps = async(context: GetStaticPropsConte
     const octokit = new Octokit();
 
     // generate markdown on the fly
-    let content = `## Pages\n`;
+    let content = `## Topics\n`;
     let currentCategory: string | null = null;
 
-    data.forEach((x: FileMetadata): undefined => {
+    data.forEach((x: FileMetadata, i: number): undefined => {
         // extract variables
         const {relativePath, title, category} = x;
         // add / update category
         if (category !== currentCategory) {
-            content += `#### ${ category }\n`;
+            // close previous category
+            if (currentCategory !== null)
+                content += `</details>\n`;
+            // format category hash
+            content += `<details id="${ category.toLowerCase().replaceAll(/[^a-z ]/gu, ``).replaceAll(/\s+/gu, `-`) }">\n`;
+            content += `<summary><b>${ category }</b></summary>\n\n`;
             currentCategory = category;
         }
         // add list entry (append .html extension at build time so the routes still match ...)
-        content += `- [${ title }](${ relativePath })\n`;
+        content += `- [${ title }](${ relativePath })\n\n`;
+        // close last category
+        if (i === data.length - 1)
+            content += `</details>\n`;
     });
 
-    // throw of github token is missing
+    // throw if github token is missing
     if (typeof process.env.GITHUB_TOKEN !== `string` || !process.env.GITHUB_TOKEN.length)
         throw new Error(`invalid github token`);
 
@@ -82,14 +91,24 @@ const HomePage = (props: HomePageProps): React.JSX.Element => {
     const {htmlContents, canonicalUrl} = props;
     // return component
     return (
-        <Layout
-            homepage={ true }
-            title={ `Documentation index` }
-            description={ `Tech related digests, cheatsheets and howtos ...` }
-            keywords={ `mulepedia,homepage,tech,digest,cheatsheet` }
-            canonicalUrl={ canonicalUrl }
-            outletComponent={ <Content data={ {htmlContents} } /> }
-        />
+        <React.Fragment>
+            <Script
+                src={ `/external.js` }
+                strategy={ `beforeInteractive` }
+                onLoad={ () => {
+                    // eslint-disable-next-line n/prefer-global/console
+                    console.log(`external script loaded.`);
+                } }
+            />
+            <Layout
+                homepage={ true }
+                title={ `Documentation index` }
+                description={ `Tech related digests, cheatsheets and howtos, from beginner to advanced` }
+                keywords={ `mulepedia,homepage,tech,digest,cheatsheet` }
+                canonicalUrl={ canonicalUrl }
+                outletComponent={ <Content data={ {htmlContents} } /> }
+            />
+        </React.Fragment>
     );
 };
 

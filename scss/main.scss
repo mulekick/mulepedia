@@ -63,6 +63,16 @@ nav {
     }
 }
 
+summary {
+  font-size: 17.5px;
+  font-weight:bolder;
+  color: white;
+}
+
+details ul {
+    list-style: square;
+}
+
 .markdown-body {
     box-sizing: border-box;
     min-width: 200px;
