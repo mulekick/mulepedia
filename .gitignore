@@ -8,7 +8,7 @@ out
 standalone
 
 # projects specifics
-docs
+articles
 external.test.*
 .env
 vercel.token

@@ -9,7 +9,7 @@
         "typecheck": "npx tsc --project tsconfig.json --noEmit --emitDeclarationOnly false && echo 'type checking was successful'",
         "dev": "next dev . -p 8085",
         "lint": "npx eslint .",
-        "build": "next build .",
+        "build": "next build --webpack .",
         "prod": "next start . -p 8080",
         "live": "docker container run --rm -d --mount type=bind,source=$(realpath .vercel/output/static),target=/data/static,ro=true -p 8080:80 mulekick/serve-static:latest > /tmp/static-container-id",
         "die": "docker container stop $(cat /tmp/static-container-id) && rm /tmp/static-container-id",
@@ -18,12 +18,12 @@
         "reset": "rm -rf .next .vercel"
     },
     "dependencies": {
-        "next": "^15.4.1"
+        "next": "^16.1.4"
     },
     "devDependencies": {
-        "@mulekick/eslint-config-muleslint": "^2.2.3",
-        "@next/eslint-plugin-next": "^15.4.1",
-        "@octokit/core": "^7.0.3",
+        "@mulekick/eslint-config-muleslint": "^2.3.2",
+        "@next/eslint-plugin-next": "^16.1.4",
+        "@octokit/core": "^7.0.6",
         "@types/node": "^24.0.14",
         "@types/react": "^18.3.1",
         "@types/react-dom": "^18.3.1",
@@ -34,10 +34,10 @@
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
         "readdirp": "^3.6.0",
-        "sass": "^1.89.2",
-        "sharp": "^0.34.3",
-        "typescript": "^5.8.3",
-        "vercel": "^47.0.5"
+        "sass": "^1.97.2",
+        "sharp": "^0.34.5",
+        "typescript": "^5.9.3",
+        "vercel": "^50.4.6"
     },
     "engines": {
         "node": ">=v22.15.0",

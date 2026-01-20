@@ -31,14 +31,14 @@ export const getStaticProps: GetStaticProps = async(context: GetStaticPropsConte
     });
 
     // return sitemap
+    // eslint-disable-next-line prefer-template
     const sitemap: string = `<?xml version="1.0" encoding="UTF-8"?>\n` +
                             `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
                             `    <url>\n` +
                             `        <loc>${ DOMAIN }/</loc>\n` +
                             `        <priority>1.0</priority>\n` +
                             `    </url>\n` +
-                            // eslint-disable-next-line @typescript-eslint/no-unnecessary-template-expression
-                            `${ String(sitemapLinks) }` +
+                            sitemapLinks +
                             `</urlset>`;
 
     // export to public folder

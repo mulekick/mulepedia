@@ -15,7 +15,7 @@ import {Octokit} from "@octokit/core";
 import type {FileRelativePath, FileMetadata, PageContents} from "./interfaces.ts";
 
 // symlink to *.md files directory
-const docsDirectory = `docs`;
+const articlesDirectory = `articles`;
 
 // recursively parse directories (returns a promise)
 const parseDirectory = (dir: string): Promise<Array<readdirp.EntryInfo>> => readdirp.promise(dir, {
@@ -39,7 +39,7 @@ export const DOMAIN = `https://mulepedia.vercel.app`;
 // handle dynamic routing - read files list
 export const readFiles = async(): Promise<Array<FileMetadata>> => {
     // get all files
-    const files: Array<readdirp.EntryInfo> = await parseDirectory(docsDirectory);
+    const files: Array<readdirp.EntryInfo> = await parseDirectory(articlesDirectory);
     // retrieve files contents
     const filesContents: Array<matter.Input> = await Promise.all(files.map(x => {
         // retrieve full path, return promise
@@ -74,12 +74,12 @@ export const readFiles = async(): Promise<Array<FileMetadata>> => {
 // handle dynamic routing - generate dynamic routes from files
 export const readFilesPaths = async(): Promise<Array<FileRelativePath>> => {
     // get all files
-    const files: Array<readdirp.EntryInfo> = await parseDirectory(docsDirectory);
+    const files: Array<readdirp.EntryInfo> = await parseDirectory(articlesDirectory);
     // read files list, remove extensions and split the relative path of each file
     // the resulting array will be used to identify each file and create a route for it
     // generated routes will be handled by the catch-all segment pages/[...file].jsx
     // see https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes
-    // docs directory is not included as a route segment for SEO purposes
+    // articles directory is not included as a route segment for SEO purposes
     return files.map((x: readdirp.EntryInfo): FileRelativePath => ({params: {file: x.path.replace(/\.md$/u, ``).split(`/`)}}));
 };
 
@@ -91,7 +91,7 @@ export const readFileContents = async(filePathSegments: Array<string>): Promise<
     const canonicalUrl = `${ DOMAIN }/${ relativePath }`;
     // retrieve file contents, append file extension
     // eslint-disable-next-line security/detect-non-literal-fs-filename
-    const fileContents = await readFile(`${ docsDirectory }/${ relativePath }.md`, `utf8`);
+    const fileContents = await readFile(`${ articlesDirectory }/${ relativePath }.md`, `utf8`);
     // parse the file metadata and contents section
     const {data: {title, category, description, keywords, index, publish}, content} = matter(fileContents) as unknown as {data: FileMetadata; content: string};
     // no authentication required to access the github markdown api ...

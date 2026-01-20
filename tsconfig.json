@@ -1,46 +1,50 @@
 {
-    "compilerOptions": {
-        // do not use compilation cache
-        "incremental": false,
-        // ECMA support for targeted environments
-        "target": "es6",
-        // include Web API types definitions
-        "lib": [ "dom", "dom.iterable", "esnext" ],
-        // perserve jsx syntax for further transformation
-        "jsx": "preserve",
-        // use ECMAScript modules
-        "module": "esnext",
-        // use node algorithm for modules resolution
-        "moduleResolution": "node",
-        // prefer explicit types imports
-        "types": [],    
-        // support json files imports
-        "resolveJsonModule": true,
-        // allow file extensions in imports
-        "allowImportingTsExtensions": true,
-        // allow javascript files
-        "allowJs": true,
-        // do not emit files after compilation
-        "noEmit": true,
-        // warn for problematic code for single-file transpilation
-        "isolatedModules": true,
-        // be explicit about type-only imports
-        "verbatimModuleSyntax": true,
-        // support commonjs in builds
-        "esModuleInterop": true,
-        // check imports case
-        "forceConsistentCasingInFileNames": true,
-        // enable strict type checking options
-        "strict": true,
-        // do not type check .d.ts files
-        "skipLibCheck": true
-    },
-    "include": [
-        "next-env.d.ts",
-        "**/*.ts",
-        "**/*.tsx"
+  "compilerOptions": {
+    // do not use compilation cache
+    "incremental": false,
+    // ECMA support for targeted environments
+    "target": "es6",
+    // include Web API types definitions
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
     ],
-    "exclude": [
-        "node_modules"
-    ]
+    // perserve jsx syntax for further transformation
+    "jsx": "react-jsx",
+    // use ECMAScript modules
+    "module": "esnext",
+    // use node algorithm for modules resolution
+    "moduleResolution": "node",
+    // prefer explicit types imports
+    "types": [],
+    // support json files imports
+    "resolveJsonModule": true,
+    // allow file extensions in imports
+    "allowImportingTsExtensions": true,
+    // allow javascript files
+    "allowJs": true,
+    // do not emit files after compilation
+    "noEmit": true,
+    // warn for problematic code for single-file transpilation
+    "isolatedModules": true,
+    // be explicit about type-only imports
+    "verbatimModuleSyntax": true,
+    // support commonjs in builds
+    "esModuleInterop": true,
+    // check imports case
+    "forceConsistentCasingInFileNames": true,
+    // enable strict type checking options
+    "strict": true,
+    // do not type check .d.ts files
+    "skipLibCheck": true
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
